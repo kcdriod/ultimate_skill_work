@@ -38,9 +38,12 @@ Before acting, classify:
 - Capability: available tools, subagents, commands, credentials, and
   permissions.
 
-Use a full graph for standard, complex, multi-repository, or elevated-risk
-work. For a tiny task, use one implicit node unless dependencies or risk
-justify more structure.
+Size the graph proportionately:
+
+- Tiny, low-risk task: use one implicit node.
+- Standard task: start with three to seven outcome-based nodes.
+- Complex, multi-repository, or elevated-risk task: expand only where
+  dependencies, contracts, or risks require more structure.
 
 Honor the requested mode:
 
@@ -80,6 +83,13 @@ Represent each node with:
 - Validation commands or inspection method.
 - Evidence produced.
 - Recovery or rollback notes when risk warrants them.
+
+Apply this node-quality gate:
+
+- Give each node one observable outcome and one validation method.
+- Add a dependency only when downstream work cannot safely start without it.
+- Merge nodes that own the same files or produce the same evidence.
+- Rebuild the graph when new evidence invalidates its assumptions.
 
 Use these states:
 
