@@ -129,21 +129,27 @@ systems unless the user authorized that action.
 Use subagents only when the environment supports them and isolated context
 or parallel work provides more value than coordination overhead.
 
-Good candidates include:
+Before spawning, require a yes to every question:
 
-- Two or more independent READY nodes.
-- Focused repository or dependency research.
-- Separate security, performance, accessibility, or compatibility review.
-- Independent validation of a risky implementation.
-- Work in non-overlapping repositories or file sets after contracts settle.
+- Is there a READY, self-contained node?
+- Can its scope, constraints, acceptance criteria, and evidence be stated
+  without unresolved decisions?
+- Will isolation, parallelism, or an independent perspective materially
+  reduce time, context pressure, or risk?
+- Can its output be integrated without conflicting ownership?
+- Can the parent validate it without substantially repeating the work?
 
-Avoid delegation for:
+If any answer is no, keep the node with the parent or defer it.
 
-- Tiny changes.
-- Tightly coupled nodes.
-- Overlapping file ownership.
-- Undecided contracts or architecture.
-- Work the parent must immediately redo to verify.
+Allocate subagents proportionately:
+
+- Start with zero and add only the minimum number that pass the gate.
+- Use one subagent for one focused node; add more only for independent READY
+  nodes within runtime capacity.
+- Allow read-only investigations to overlap scope when their questions
+  differ; give mutating nodes exclusive file ownership.
+- Run independent nodes in parallel and dependent nodes sequentially.
+- Cancel or rescope stale assignments when the graph or contracts change.
 
 Create task-specific roles rather than relying on a fixed specialist list.
 Give every subagent:
@@ -163,9 +169,8 @@ The parent owns the graph, architecture, contracts, permissions, conflict
 resolution, integration, and final validation. Independently inspect
 subagent output and evidence; never accept a success summary by itself.
 
-Run subagents in parallel only when nodes are independent, file ownership
-does not overlap, and the runtime has capacity. If subagents are unavailable,
-execute the same READY nodes sequentially and report that fact.
+If subagents are unavailable or runtime capacity is exhausted, execute the
+same READY nodes sequentially and report that fact.
 
 ## 6. Run evidence-based validation loops
 
